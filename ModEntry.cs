@@ -1,6 +1,8 @@
 ﻿using HarmonyLib;
 using StardewModdingAPI;
+using StardewValley;
 using StardewValley.Locations;
+using xTile.Dimensions;
 
 namespace DespairScent.UnlockedBundles
 {
@@ -17,6 +19,21 @@ namespace DespairScent.UnlockedBundles
 
             harmony.Patch(AccessTools.Method(typeof(CommunityCenter), nameof(CommunityCenter.shouldNoteAppearInArea)),
                prefix: new HarmonyMethod(typeof(ModEntry), nameof(PatchJunimoNoteVisible)));
+
+            harmony.Patch(AccessTools.Method(typeof(CommunityCenter), nameof(CommunityCenter.checkAction)),
+               prefix: new HarmonyMethod(typeof(ModEntry), nameof(PatchClubCheckAction)));
+        }
+
+        private static bool PatchClubCheckAction(CommunityCenter __instance, ref bool __result, Location tileLocation, xTile.Dimensions.Rectangle viewport, Farmer who)
+        {
+            if (__instance.getTileIndexAt(tileLocation, "Buildings", "indoors") == 1799 &&
+                __instance.shouldNoteAppearInArea(CommunityCenter.AREA_Bulletin))
+            {
+                __instance.checkBundle(CommunityCenter.AREA_Bulletin);
+                __result = true;
+                return false;
+            }
+            return true;
         }
 
         private static bool PatchJunimoNoteVisible(CommunityCenter __instance, ref bool __result, int area)
