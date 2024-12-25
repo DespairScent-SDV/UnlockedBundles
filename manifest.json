@@ -1,0 +1,11 @@
+﻿{
+  "Name": "UnlockedBundles",
+  "Author": "DespairScent",
+  "Version": "1.0.0",
+  "Description": "Makes all Junimo's Golden scrolls in the community center visible by default",
+  "UniqueID": "DespairScent.UnlockedBundles",
+  "EntryDll": "UnlockedBundles.dll",
+  "MinimumApiVersion": "4.0.0",
+  "MinimumGameVersion": "1.6.0",
+  "UpdateKeys": [ "Nexus:30302" ]
+}
